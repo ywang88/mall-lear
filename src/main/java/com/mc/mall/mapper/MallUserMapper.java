@@ -21,4 +21,6 @@ public interface MallUserMapper {
     int conutByEmail(String email);
 
     MallUser selectByUsername(String username);
+
+
 }

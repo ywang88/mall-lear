@@ -1,5 +1,6 @@
 package com.mc.mall.controller;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.mc.mall.Enum.ResponseEnum;
 import com.mc.mall.consts.MallConst;
 import com.mc.mall.from.UserLoginForm;
@@ -54,22 +55,47 @@ public class MallUserController {
         if (bindingResult.hasErrors()) {
             return ResponseVo.error(ResponseEnum.PASSWORD_ERROR, bindingResult);
         }
+
         //获取到用户名与密码
         ResponseVo<MallUser> login = mallUserService.login(userLoginForm.getUsername(), userLoginForm.getPassword());
         //设置session
         session.setAttribute(MallConst.CURRE_USER, login.getData());
+        log.info("/login sessionId={}", session.getId());
         return login;
     }
 
     //查询用户信息
     @GetMapping("/user")
     public ResponseVo<MallUser> userInfor(HttpSession session) {
+        log.info("/user sessionId={}", session.getId());
         MallUser mallUser = (MallUser) session.getAttribute(MallConst.CURRE_USER);
-        //判断用户是否存在
-        if (mallUser == null) {
-            return ResponseVo.error(ResponseEnum.NEED_LOGIN);
-        }
+        //判断用户是否存在，以用拦截器
+//        if (mallUser == null) {
+//            return ResponseVo.error(ResponseEnum.NEED_LOGIN);
+//        }
+
         return ResponseVo.success(mallUser);
     }
+
+    // TODO: 2020/11/18
+    //判断用户是否在线代码多次用到可以通过拦截器做
+    //退出
+    @PostMapping("/user/logout")
+    public ResponseVo logout(HttpSession session) {
+        //打印sessionid
+        log.info("/user/logout sessionId={}", session.getId());
+        //重session拿到用户信息
+        MallUser mallUser = (MallUser) session.getAttribute(MallConst.CURRE_USER);
+        //判断是否有用户信息,以用拦截器
+//        if (mallUser == null) {
+//            //没有则提示用户未登录
+//            ResponseVo.error(ResponseEnum.NEED_LOGIN);
+//        }
+        //有用户信息则清除session
+        //session不安全
+        session.removeAttribute(MallConst.CURRE_USER);
+        return ResponseVo.success();
+    }
+
 
 }

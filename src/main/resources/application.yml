@@ -1,5 +1,8 @@
 server:
   port: 8080
+  servlet: #设置session过期时间
+    session:
+      timeout: 120    #单位为秒，默认为30min,设置不得少于1分钟
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,3 +23,4 @@ mybatis:
 logging:
   pattern:
     console: "[%thread] %-5level %logger{36} - %msg%n"
+

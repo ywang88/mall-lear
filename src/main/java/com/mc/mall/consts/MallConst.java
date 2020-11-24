@@ -8,5 +8,7 @@ package com.mc.mall.consts;
  */
 public class MallConst {
     public static final String CURRE_USER = "curreUser";
+
+    public static final Integer ROOT_PARENT_ID = 0;
 }
 
