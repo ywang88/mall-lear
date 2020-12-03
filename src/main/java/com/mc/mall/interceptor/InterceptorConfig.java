@@ -21,6 +21,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 //拦截所有
                 .addPathPatterns("/**")
                 //配置不拦截的url
-                .excludePathPatterns("/user/login", "/user/register", "/categores");
+                .excludePathPatterns("/user/login", "/user/register", "/categores", "/products");
     }
 }

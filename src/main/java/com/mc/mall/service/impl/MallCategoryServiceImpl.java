@@ -7,6 +7,7 @@ import com.mc.mall.service.MallCategoryService;
 import com.mc.mall.vo.CatregoryVo;
 import com.mc.mall.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -45,12 +47,29 @@ public class MallCategoryServiceImpl implements MallCategoryService {
         List<CatregoryVo> catregoryVoList = mallCategories.stream()
                 .filter((e) -> e.getParentId().equals(MallConst.ROOT_PARENT_ID))
                 .map(this::catregory2CategoryVo)
-                 .sorted(Comparator.comparing(CatregoryVo::getSortOrder).reversed())
+                .sorted(Comparator.comparing(CatregoryVo::getSortOrder).reversed())
                 .collect(Collectors.toList());
 
         //调用查询子目录方法
         findSubCategory(catregoryVoList, mallCategories);
         return ResponseVo.success(catregoryVoList);
+    }
+
+    @Override
+    public void findSubCategoryId(Integer id, Set<Integer> resultSet) {
+        List<MallCategory> categories = mallCategoryMapper.selectAll();
+        findSubCategoryId(id, resultSet, categories);
+
+    }
+
+    private void findSubCategoryId(Integer id, Set<Integer> resultSet, List<MallCategory> categories) {
+        for (MallCategory category : categories) {
+            if (category.getParentId().equals(id)) {
+                resultSet.add(category.getId());
+                //递归
+                findSubCategoryId(category.getId(), resultSet,categories);
+            }
+        }
     }
 
     //查询子目录方法
