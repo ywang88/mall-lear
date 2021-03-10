@@ -2,6 +2,7 @@ package com.mc.mall.interceptor;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -18,9 +19,22 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //注册拦截器
         registry.addInterceptor(new UserLoginInterceptor())
-                //拦截所有
+                //默认拦截所有
                 .addPathPatterns("/**")
                 //配置不拦截的url
-                .excludePathPatterns("/user/login", "/user/register", "/categores", "/products");
+                .excludePathPatterns("/error","/user/login", "/user/register",
+                        "/categores", "/products", "/products/*", "/swagger-ui.html/**"
+
+                );
     }
+
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+//        registry.addResourceHandler("swagger-ui.html")
+//                .addResourceLocations("classpath:/META-INF/resources/");
+//        registry.addResourceHandler("/webjars/**")
+//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+//    }
 }

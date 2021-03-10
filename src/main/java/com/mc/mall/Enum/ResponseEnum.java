@@ -12,7 +12,10 @@ public enum ResponseEnum {
     EMAIL_EXIST(4, "邮箱已存在"),
     NEED_LOGIN(10, "用户未登录，请先登录"),
     USERNAME_OR_PASSWORD_ERROR(11, "用户名或密码错误"),
-    ;
+    PRODUCT_OFF_SALE_OR_dELETE(12, "商品已下架或已删除"),
+    PRODUCT_NOT_EXIST(13, "商品不存在"),
+    PRODUCT_STOCK_ERROR(14, "库存有误"),
+    CART_PRODUCT_NOT_EXIST(13, "购物车中此商品不存在");
     Integer code;
     String desc;
 

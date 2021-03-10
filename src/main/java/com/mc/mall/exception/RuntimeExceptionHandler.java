@@ -2,11 +2,14 @@ package com.mc.mall.exception;
 
 import com.mc.mall.Enum.ResponseEnum;
 import com.mc.mall.vo.ResponseVo;
-import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
+
+import java.util.Objects;
 
 /**
  * 统一异常处理
@@ -27,6 +30,16 @@ public class RuntimeExceptionHandler {
     @ExceptionHandler(UserLoginException.class)
     @ResponseBody
     public ResponseVo userLoginHandle() {
-      return   ResponseVo.error(ResponseEnum.NEED_LOGIN);
+        return ResponseVo.error(ResponseEnum.NEED_LOGIN);
+    }
+
+    //表单统一验证处理
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public ResponseVo notValidExceptionHandle(MethodArgumentNotValidException e) {
+        BindingResult bindingResult = e.getBindingResult();
+        Objects.requireNonNull(bindingResult.getFieldError());
+        return ResponseVo.error(ResponseEnum.PARAM_ERROR,
+                bindingResult.getFieldError().getField() + " " + bindingResult.getFieldError().getDefaultMessage());
     }
 }

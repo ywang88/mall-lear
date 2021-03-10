@@ -11,6 +11,9 @@ public class MallApplicationTests {
 
     @Test
     public void contextLoads() {
+        for (int i = 0; i <5 ; i++) {
+            System.out.println("sss");
+        }
     }
 
 }
