@@ -14,14 +14,24 @@ spring:
     host: 192.168.95.129
     port: 6379
     password: Tomyredis
-mybatis:
-  #xml文件扫描路径
+##mybatis
+#mybatis:
+#  #xml文件扫描路径
+#  mapper-locations: classpath:mapper/*.xml
+#  configuration:
+#    #开启驼峰
+#    map-underscore-to-camel-case: true
+#    #控制台开启sql语句输出
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+##mybatis-plus
+mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     #开启驼峰
     map-underscore-to-camel-case: true
     #控制台开启sql语句输出
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 
 logging:
   pattern:
