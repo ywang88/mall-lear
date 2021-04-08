@@ -211,7 +211,8 @@ public class ICartServiceImpl implements ICartService {
         return ResponseVo.success(sum);
     }
 
-    private List<Cart> listForCart(Integer uid) {
+    //获取购物车方法
+    public List<Cart> listForCart(Integer uid) {
         HashOperations<String, String, String> operations = redisTemplate.opsForHash();
         String redisKey = String.format(CART_REDIS_KEY_TEMPLATE, uid);
         Map<String, String> entries = operations.entries(redisKey);

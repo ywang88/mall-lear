@@ -2,9 +2,12 @@ package com.mc.mall.service;
 
 import com.mc.mall.from.CartAddFrom;
 import com.mc.mall.from.CartUpdateFarm;
+import com.mc.mall.pojo.Cart;
 import com.mc.mall.vo.CartVo;
 import com.mc.mall.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * 购物车接口
@@ -33,4 +36,7 @@ public interface ICartService {
 
     //购物车商品总和
     ResponseVo<Integer> sum(Integer uid);
+
+    //获取购物车
+    List<Cart> listForCart(Integer uid);
 }

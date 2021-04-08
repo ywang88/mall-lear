@@ -30,10 +30,11 @@ public class ICartServiceTest extends MallApplicationTests {
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    private Integer prodectId=26;
-    private Integer uid=2;
+    private Integer prodectId = 29;
+    private Integer uid = 2;
 
-    @Before
+//    @Before
+    @Test
     public void add() {
         log.info("新增购物车[].....");
         CartAddFrom cartAddFrom = new CartAddFrom();
@@ -64,15 +65,16 @@ public class ICartServiceTest extends MallApplicationTests {
 
     }
 
-   @After
+//    @After
     public void delete() {
         log.info("删除购物车[].....");
         ResponseVo<CartVo> responseVo = iCartService.delete(uid, prodectId);
         log.info("responseVo={}", gson.toJson(responseVo));
-       Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), responseVo.getStatus());
+        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), responseVo.getStatus());
 
 
-   }
+    }
+
     @Test
     public void selectAll() {
         ResponseVo<CartVo> responseVo = iCartService.selectAll(uid);
@@ -80,7 +82,9 @@ public class ICartServiceTest extends MallApplicationTests {
         Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), responseVo.getStatus());
 
 
-    }  @Test
+    }
+
+    @Test
     public void unselectAll() {
         ResponseVo<CartVo> responseVo = iCartService.unselectAll(uid);
         log.info("result={}", gson.toJson(responseVo));
@@ -88,6 +92,7 @@ public class ICartServiceTest extends MallApplicationTests {
 
 
     }
+
     @Test
     public void sum() {
         ResponseVo<Integer> responseVo = iCartService.sum(uid);
