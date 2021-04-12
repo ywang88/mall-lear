@@ -10,6 +10,11 @@ spring:
     username: root
     password: wangyi123.
     type: com.alibaba.druid.pool.DruidDataSource
+  rabbitmq:
+    addresses: 192.168.95.129
+    port: 5672
+    username: guest
+    password: guest
   redis:
     host: 192.168.95.129
     port: 6379
